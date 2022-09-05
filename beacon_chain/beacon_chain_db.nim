@@ -842,26 +842,26 @@ proc putStateDiff*(db: BeaconChainDB, root: Eth2Digest, value: BeaconStateDiff) 
 proc delBlock*(db: BeaconChainDB, key: Eth2Digest) =
   db.withManyWrites:
     for kv in db.blocks:
-      kv.del(key.data).expectDb()
-    db.summaries.del(key.data).expectDb()
+      discard kv.del(key.data).expectDb()
+    discard db.summaries.del(key.data).expectDb()
 
 proc delState*(db: BeaconChainDB, key: Eth2Digest) =
   db.withManyWrites:
     for kv in db.statesNoVal:
-      kv.del(key.data).expectDb()
+      discard kv.del(key.data).expectDb()
 
 proc delKeyValue*(db: BeaconChainDB, key: array[1, byte]) =
-  db.keyValues.del(key).expectDb()
-  db.v0.backend.del(key).expectDb()
+  discard db.keyValues.del(key).expectDb()
+  discard db.v0.backend.del(key).expectDb()
 
 proc delKeyValue*(db: BeaconChainDB, key: DbKeyKind) =
   db.delKeyValue(subkey(key))
 
 proc delStateRoot*(db: BeaconChainDB, root: Eth2Digest, slot: Slot) =
-  db.stateRoots.del(stateRootKey(root, slot)).expectDb()
+  discard db.stateRoots.del(stateRootKey(root, slot)).expectDb()
 
 proc delStateDiff*(db: BeaconChainDB, root: Eth2Digest) =
-  db.stateDiffs.del(root.data).expectDb()
+  discard db.stateDiffs.del(root.data).expectDb()
 
 proc putHeadBlock*(db: BeaconChainDB, key: Eth2Digest) =
   db.keyValues.putRaw(subkey(kHeadBlock), key)

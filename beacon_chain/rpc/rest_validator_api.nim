@@ -376,10 +376,12 @@ proc installValidatorApiHandlers*(router: var RestRouter, node: BeaconNode) =
 
         let res =
           if qslot.epoch >= node.dag.cfg.CAPELLA_FORK_EPOCH:
-            await makeBeaconBlockForHeadAndSlot[capella.ExecutionPayload](
+            await makeBeaconBlockForHeadAndSlot(
+              capella.ExecutionPayload,
               node, qrandao, proposer.get(), qgraffiti, qhead, qslot)
           else:
-            await makeBeaconBlockForHeadAndSlot[bellatrix.ExecutionPayload](
+            await makeBeaconBlockForHeadAndSlot(
+              bellatrix.ExecutionPayload,
               node, qrandao, proposer.get(), qgraffiti, qhead, qslot)
         if res.isErr():
           return RestApiResponse.jsonError(Http400, res.error())
@@ -482,8 +484,9 @@ proc installValidatorApiHandlers*(router: var RestRouter, node: BeaconNode) =
         bellatrixData: res.get()))
     else:
       # Pre-Bellatrix, this endpoint will return a BeaconBlock
-      let res = await makeBeaconBlockForHeadAndSlot[bellatrix.ExecutionPayload](
-        node, qrandao, proposer.get(), qgraffiti, qhead, qslot)
+      let res = await makeBeaconBlockForHeadAndSlot(
+        bellatrix.ExecutionPayload, node, qrandao,
+        proposer.get(), qgraffiti, qhead, qslot)
       if res.isErr():
         return RestApiResponse.jsonError(Http400, res.error())
       return responsePlain(res.get())
