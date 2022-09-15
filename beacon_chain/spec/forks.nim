@@ -728,7 +728,8 @@ template getForkedBodyField*(
   of BeaconBlockFork.Phase0:    unsafeAddr x.phase0Data.message.body.y
   of BeaconBlockFork.Altair:    unsafeAddr x.altairData.message.body.y
   of BeaconBlockFork.Bellatrix: unsafeAddr x.bellatrixData.message.body.y
-  of BeaconBlockFork.Capella:   unsafeAddr x.capellaData.message.body.y)[]
+  of BeaconBlockFork.Capella:   unsafeAddr x.capellaData.message.body.y
+  of BeaconBlockFork.EIP4844:   unsafeAddr x.eip4844Data.message.body.y)[]
 
 func signature*(x: ForkedSignedBeaconBlock |
                        ForkedMsgTrustedSignedBeaconBlock |
