@@ -485,7 +485,7 @@ proc processSyncCommitteeMessage*(
 
   # Potential under/overflows are fine; would just create odd metrics and logs
   let delay = wallTime - syncCommitteeMsg.slot.start_beacon_time
-  trace "Sync committee message received", delay
+  debug "Sync committee message received", delay
 
   # Now proceed to validation
   let v = await validateSyncCommitteeMessage(
