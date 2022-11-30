@@ -119,6 +119,10 @@ type
     Mainnet = "mainnet"
     None = "none"
 
+  ImportMethod* {.pure.} = enum
+    Normal = "normal"
+    SingleSalt = "single-salt"
+
   BeaconNodeConf* = object
     configFile* {.
       desc: "Loads the configuration from a TOML file"
@@ -686,6 +690,12 @@ type
         importedDepositsDir* {.
           argument
           desc: "A directory with keystores to import" .}: Option[InputDir]
+
+        importMethod* {.
+          desc: "Specifies which import method will be used (" &
+                "normal, single-salt)"
+          defaultValue: ImportMethod.Normal
+          name: "method" .}: ImportMethod
 
       of DepositsCmd.exit:
         exitedValidator* {.

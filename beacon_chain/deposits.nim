@@ -348,7 +348,7 @@ proc doDeposits*(config: BeaconNodeConf, rng: var HmacDrbgContext) {.
         quit 1
 
     importKeystoresFromDir(
-      rng,
+      rng, config.importMethod,
       validatorKeysDir.string,
       config.validatorsDir, config.secretsDir)
 
