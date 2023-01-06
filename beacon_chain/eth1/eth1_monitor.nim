@@ -752,7 +752,7 @@ proc getPayloadFromSingleEL(
 
   return await engine_api.getPayload(rpcClient, GetPayloadResponseType, payloadId)
 
-func blockValue(blk: ExecutionPayloadV1): int64 {.raises: [RlpError].} =
+func blockValue(blk: ExecutionPayloadV1): int64 {.raises: [RlpError, Defect].} =
   ## TODO Ensure this cannot overflow
   for transactionBytes in blk.transactions:
     var rlp = rlpFromBytes distinctBase(transactionBytes)

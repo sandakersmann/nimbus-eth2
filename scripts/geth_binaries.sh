@@ -98,7 +98,7 @@ download_status_geth_binary() {
 }
 
 download_geth_capella() {
-  download_status_geth_binary capella "$GETH_CAPELLA_BINARY"
+  download_status_geth_binary withdrawals-timestamp "$GETH_CAPELLA_BINARY"
 }
 
 download_geth_eip_4844() {
